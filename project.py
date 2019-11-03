@@ -2,7 +2,7 @@ import googlemaps
 import geocoder
 import requests
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from queue import LifoQueue
 from googlemaps import directions
 import socket
@@ -136,11 +136,14 @@ def getMiles(coord1, coord2):
             miles += s
     return float(miles)
 
-def router(adjacent):
+@app.route("/", methods=['GET'])
+def router(current, adjacent, runDistance):
     totalDist = 0
-    current = adjacent[0]['location']
     streetDist = getMiles(current,adjacent[0]['location'])
+    current = adjacent[0]['location']
     route = LifoQueue()
+    runDistance = request.args.get('runDistance')
+    print(runDistance)
     while len(adjacent)-1 > 0:
         n = adjacent[0]
         print(n)
@@ -162,18 +165,14 @@ def router(adjacent):
             route.get()
 
 if __name__ == "__main__":
-    #app.run(debug=False)
+    app.run(debug=False)
     home = (40.006066, -83.009263)
     route = LifoQueue()
     allRoutes = LifoQueue()
     totalDist = 0
     streetDist = 1
     runDistance = 4
-<<<<<<< HEAD
-    adjStreet = sweep(home,0.0005)
-    router(adjStreet)
+    #adjStreet = sweep(home,0.0005)
+    adjStreet = gmaps.nearest_roads(home)[0]
+    router(home, adjStreet, runDistance)
     print(adjStreet)
-=======
-    adjStreet = sweep(home,0.00005)
-    router(adjStreet)
->>>>>>> b56190f4d23a86ee3b3d30c903e86e0ae23222bc
