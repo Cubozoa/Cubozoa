@@ -121,13 +121,13 @@ background: #ddd;
 }
 
 /* When clicked on, add a background color and strike out text */
-ul li.checked {
+.active {
 background: #888;
 color: #fff;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li.checked::before {
+.active {
 content: '';
 position: absolute;
 border-color: #fff;

@@ -123,7 +123,9 @@ street = streetAddress[1]['address_components'][1]['long_name']
 #direct = gmaps.directions(home, neighbor1)
 
 def getMiles(coord1, coord2):
-    direct = gmaps.directions(coord1, coord2)
+    if ((coord1 != None) and (coord2 != None)):
+        direct = gmaps.directions(coord1, coord2)
+    
     directLegs = direct[0]['legs']
     directDistance = directLegs[0]['distance']
     directText = directDistance['text']

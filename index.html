@@ -66,6 +66,20 @@ function showMap() {
      });
   }
 
+var ul = document.getElementById("prefs");
+
+var listItems = ul.getElementsByTagName("li");
+
+for(li of listItems){
+  li.addEventListener('click', function(){
+    if(this.classList.contains('active')){
+      this.classList.remove("active");
+    } else {
+      this.classList.add("active");
+    }
+  })
+}
+
 }())
 </script>
     <div id="userInput">
